@@ -9,6 +9,10 @@ public class exercise2 {
 		// exercise 2: implement an algorithm to determine if one string is a permutation of another
 		
 		testStrings("aabc", "baac");
+		testStrings("aabc", "aaaaaa");
+		testStrings("gac", "");
+		testStrings("1234", "1122");
+		testStrings("12re", "e21r");
 	
 	}
 	
