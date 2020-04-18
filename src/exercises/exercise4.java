@@ -1,0 +1,157 @@
+package exercises;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class exercise4 {
+
+	public static void main(String[] args) {
+		// exercise 2: implement an algorithm to determine if a string is a permuation of a palindrome. 
+		//the palindrome does not need to be composed of real words. ignore spacing and capitalization.
+		// example- "Tact Coa" could be permutated into "taco cat" or "atco cta"
+		
+		print(findPalindromes("Tact Coa"));
+	
+	}
+	
+	public static String findPalindromes(String str) {
+		
+		
+		
+		//convert to char arraylist- lower case
+		String[] strAsChars = str.split("");
+		for(var i = 0; i < strAsChars.length ; i ++) {
+			strAsChars[i] = strAsChars[i].toLowerCase();
+		}
+		ArrayList<String> originalString = new ArrayList<>();
+		ArrayList<String> pairedLetters = new ArrayList<>();
+		ArrayList<Integer> indexOfSpaces = new ArrayList();
+		String middle = null;
+		boolean middleCharacterFound = false;
+		StringBuilder p1 = null;
+		
+		for(String c: strAsChars) {
+			originalString.add(c.toLowerCase());
+		}
+		
+		for(int i = 0; i < strAsChars.length ; i ++) {
+			
+			boolean duplicateFound = false;
+			
+			//note down locations of spaces for reassembling palindrome, remove from array
+			if(strAsChars[i] == " "){
+				indexOfSpaces.add(i);
+				for(String c : originalString) {
+					if(c == strAsChars[i]) {
+						originalString.remove(c);
+						break;
+					}
+				}
+			}
+			
+			//remove original char
+			for(String c: originalString) {
+				if(c == strAsChars[i]) {
+					originalString.remove(c);
+					break;
+				}
+			}
+			
+			//search for duplicate to go on other end of palindrome.
+			for(String c: originalString) {
+				if(c == strAsChars[i]) {
+					originalString.remove(c);
+					pairedLetters.add(c);
+					duplicateFound = true;
+					break;
+				} 
+			}
+			
+			if(!duplicateFound) {
+				if(!middleCharacterFound) {
+					middle = strAsChars[i];
+				} else {
+					return null;
+				}
+			}
+			
+			ArrayList<String> results = new ArrayList<>();
+			int currentIndex = 0;
+			
+			//add first half of palindrome
+			for(int j = 0; j < pairedLetters.size() ; j++) {
+				for(int k = 0; k < indexOfSpaces.size() ; k ++) {
+					if(indexOfSpaces.get(k) == currentIndex) {
+						p1.append(" ");
+						currentIndex += 1;
+					}
+				}
+				p1.append(pairedLetters.get(j));
+				currentIndex += 1;
+			}
+			
+			//check if space to be added before adding middle
+			for(int j = 0; j < indexOfSpaces.size() ; j ++) {
+				if(indexOfSpaces.get(j) == currentIndex) {
+					p1.append(" ");
+					currentIndex += 1;
+				}
+			}
+			
+			if(middleCharacterFound) {
+				p1.append(middle);
+			}
+			
+			//add same letters in backwards order
+			for(int k = pairedLetters.size()-1; k > -1 ; k--) {
+				for(int l = 0; l < indexOfSpaces.size() ; l++) {
+					if(indexOfSpaces.get(l) == currentIndex) {
+						p1.append(" ");
+						currentIndex += 1;
+					}
+				}
+				p1.append(pairedLetters.get(k));
+				currentIndex += 1;
+			}
+		
+			//check for spaces at the end
+			for(int j = 0; j < indexOfSpaces.size() ; j ++) {
+				if(indexOfSpaces.get(j) == currentIndex) {
+					p1.append(" ");
+					currentIndex += 1;
+				}
+			}
+			
+			
+		}
+		
+		
+		return p1.toString();
+		//loop through chars
+			//if space , ignore and add index to array for assembling palindromes later
+			//for character, remove from initial array and add to palindrome array
+			//look for match
+				//if no match, set middle value and set middlevalue to true
+					//if middlevalue is true already return false
+				//if match, remove from char array
+		
+		
+			//if all characters have a match with one or less middle character, build p
+		
+				
+		
+	}
+	
+//	public static String getResults(String str, String str2) {
+//		return "Testing strings: "+ str + "/" + str2 + " | " + isPermutationOf(str, str2);
+//	}
+	
+//	public static void testStrings(String s1, String s2) {
+//		print(getResults(s1,s2));
+//	}
+	
+	public static void print(String str) {
+		System.out.println(str);
+	}
+
+}
