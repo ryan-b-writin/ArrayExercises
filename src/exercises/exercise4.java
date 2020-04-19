@@ -11,6 +11,9 @@ public class exercise4 {
 		// example- "Tact Coa" could be permutated into "taco cat" or "atco cta"
 		
 		print(findPalindromes("Tact Coa"));
+		print(findPalindromes("ra ce ca r race c a r rr cc a au"));
+		print(findPalindromes("testing"));
+		
 	
 	}
 	
@@ -28,7 +31,7 @@ public class exercise4 {
 		ArrayList<Integer> indexOfSpaces = new ArrayList();
 		String middle = null;
 		boolean middleCharacterFound = false;
-		StringBuilder p1 = null;
+		StringBuilder p1 = new StringBuilder();
 		
 		for(String c: strAsChars) {
 			originalString.add(c.toLowerCase());
@@ -37,43 +40,52 @@ public class exercise4 {
 		for(int i = 0; i < strAsChars.length ; i ++) {
 			
 			boolean duplicateFound = false;
+			boolean charIsSpace = false;
 			
 			//note down locations of spaces for reassembling palindrome, remove from array
-			if(strAsChars[i] == " "){
+			if(" ".equals(strAsChars[i])){
 				indexOfSpaces.add(i);
 				for(String c : originalString) {
 					if(c == strAsChars[i]) {
 						originalString.remove(c);
+						charIsSpace = true;
 						break;
 					}
 				}
 			}
 			
-			//remove original char
-			for(String c: originalString) {
-				if(c == strAsChars[i]) {
-					originalString.remove(c);
-					break;
+			if(!charIsSpace) {
+				boolean alreadyPairedOff = true;
+				//remove original char
+				for(String c: originalString) {
+					if(c.equals(strAsChars[i])) {
+						originalString.remove(c);
+						alreadyPairedOff = false;
+						break;
+					}
+				}
+				
+				//search for duplicate to go on other end of palindrome.
+				for(String c: originalString) {
+					if(c.equals(strAsChars[i])) {
+						originalString.remove(c);
+						pairedLetters.add(c);
+						duplicateFound = true;
+						break;
+					}
+				}
+				
+				if(!duplicateFound && !alreadyPairedOff) {
+					
+					if(!middleCharacterFound) {
+						middle = strAsChars[i];
+						middleCharacterFound = true;
+					} else if (middleCharacterFound) {
+						return "false";
+					}
 				}
 			}
-			
-			//search for duplicate to go on other end of palindrome.
-			for(String c: originalString) {
-				if(c == strAsChars[i]) {
-					originalString.remove(c);
-					pairedLetters.add(c);
-					duplicateFound = true;
-					break;
-				} 
-			}
-			
-			if(!duplicateFound) {
-				if(!middleCharacterFound) {
-					middle = strAsChars[i];
-				} else {
-					return null;
-				}
-			}
+		}
 			
 			ArrayList<String> results = new ArrayList<>();
 			int currentIndex = 0;
@@ -100,6 +112,7 @@ public class exercise4 {
 			
 			if(middleCharacterFound) {
 				p1.append(middle);
+				currentIndex +=1;
 			}
 			
 			//add same letters in backwards order
@@ -121,24 +134,9 @@ public class exercise4 {
 					currentIndex += 1;
 				}
 			}
-			
-			
-		}
 		
+		return "True, generated example: " + p1.toString();
 		
-		return p1.toString();
-		//loop through chars
-			//if space , ignore and add index to array for assembling palindromes later
-			//for character, remove from initial array and add to palindrome array
-			//look for match
-				//if no match, set middle value and set middlevalue to true
-					//if middlevalue is true already return false
-				//if match, remove from char array
-		
-		
-			//if all characters have a match with one or less middle character, build p
-		
-				
 		
 	}
 	
