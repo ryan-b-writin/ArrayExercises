@@ -75,6 +75,7 @@ public class exercise4 {
 					}
 				}
 				
+				//there is room in a palindrome for one singleton
 				if(!duplicateFound && !alreadyPairedOff) {
 					
 					if(!middleCharacterFound) {
@@ -139,14 +140,7 @@ public class exercise4 {
 		
 		
 	}
-	
-//	public static String getResults(String str, String str2) {
-//		return "Testing strings: "+ str + "/" + str2 + " | " + isPermutationOf(str, str2);
-//	}
-	
-//	public static void testStrings(String s1, String s2) {
-//		print(getResults(s1,s2));
-//	}
+
 	
 	public static void print(String str) {
 		System.out.println(str);
