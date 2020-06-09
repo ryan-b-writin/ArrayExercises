@@ -23,7 +23,7 @@ public class exercise4 {
 		
 		//convert to char arraylist- lower case
 		String[] strAsChars = str.split("");
-		for(var i = 0; i < strAsChars.length ; i ++) {
+		for(int i = 0; i < strAsChars.length ; i ++) {
 			strAsChars[i] = strAsChars[i].toLowerCase();
 		}
 		ArrayList<String> originalString = new ArrayList<>();
