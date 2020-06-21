@@ -18,7 +18,6 @@ public class exercise1 {
 			}
 		}
 		return true;
-		
 	}
 	
 	public static String getResults(String str) {
