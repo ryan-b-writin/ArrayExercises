@@ -8,23 +8,35 @@ public class exercise6 {
 		//for example, aabcccccaaa would become a2b1c5a3. if the compressed string would not become smaller than the original string,
 		//return the original string. assume the string only has uppercase and lowercase letters a-z.
 		
-		testStrings("aabc", "abcdefghijklmnopqrstuvwxyz1234567890", "abcabc");
+		testStrings("aabcccccaaa");
 	
 	}
 	
-	public static boolean isUnique(String str) {
+	public static String compress(String str) {
 		
-		for(int i = 0; i<str.length() ; i++) {
-			for(int j = i + 1; j <str.length() ; j++) {
-				if(str.charAt(i) == str.charAt(j))
-						return false;
-			}
+		char[] array = str.toCharArray();
+		String results = "";
+		int index = 1;
+		
+		for(int i=0; i < array.length; i++){
+			int compressionIndex = 1;
+			if (i < index){
+				for(int j = i+1; j < array.length; j++){
+					if(array[i] == array[j]){
+						compressionIndex += 1;
+						index += 1;
+					}
+					
+				}
+			}	
 		}
-		return true;
+			
+		
+		return results;
 	}
 	
 	public static String getResults(String str) {
-		return "Testing string: "+ str + " | " + isUnique(str);
+		return "Testing string: "+ str + " | " + compress(str);
 	}
 	
 	public static void testStrings(String ... strings) {
