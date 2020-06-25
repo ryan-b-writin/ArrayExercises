@@ -8,7 +8,7 @@ public class exercise6 {
 		//for example, aabcccccaaa would become a2b1c5a3. if the compressed string would not become smaller than the original string,
 		//return the original string. assume the string only has uppercase and lowercase letters a-z.
 		
-		testStrings("aabcccccaaa");
+		testStrings("aabcccccaaa", "aabbcaaaab");
 	
 	}
 	
@@ -16,22 +16,22 @@ public class exercise6 {
 		
 		char[] array = str.toCharArray();
 		String results = "";
-		int index = 1;
+		int index = 0;
 		
 		for(int i=0; i < array.length; i++){
 			int compressionIndex = 1;
-			if (i < index){
-				for(int j = i+1; j < array.length; j++){
-					if(array[i] == array[j]){
-						compressionIndex += 1;
-						index += 1;
+				if (i > index || index == 0){
+					for(int j = i+1; j < array.length; j++){
+						if(array[i] == array[j]){
+							compressionIndex += 1;
+							index = j;
+						} else {
+							break;
+						}
 					}
-					
+					results += String.valueOf(array[i]) + String.valueOf(compressionIndex);
 				}
-			}	
-		}
-			
-		
+			}
 		return results;
 	}
 	
